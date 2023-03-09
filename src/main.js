@@ -1,8 +1,8 @@
 'use strict';
 const itemSize = 80;
-const CARROT_COUNT = 5;
-const BUG_COUNT = 5;
-const GAME_DURATION_SEC = 5;
+const CARROT_COUNT = 20;
+const BUG_COUNT = 20;
+const GAME_DURATION_SEC = 20;
 
 const field = document.querySelector('.game__field');
 const fieldRect = field.getBoundingClientRect();
@@ -126,8 +126,8 @@ function initGame() {
   score = 0;
   field.innerHTML = '';
   gameScore.innerHTML = CARROT_COUNT;
-  addItem('carrot', 5, 'img/carrot.png');
-  addItem('bug', 5, 'img/bug.png');
+  addItem('carrot', CARROT_COUNT, 'img/carrot.png');
+  addItem('bug', BUG_COUNT, 'img/bug.png');
 }
 
 function onFieldClick(event) {
@@ -144,7 +144,6 @@ function onFieldClick(event) {
       finishGame(true);
     }
   } else if (target.matches('.bug')) {
-    stopGameTimer();
     finishGame(false);
   }
 }
