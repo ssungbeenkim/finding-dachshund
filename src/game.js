@@ -1,8 +1,14 @@
 import Field from './field.js';
 import * as sound from './sound.js';
 
+export const Reason = Object.freeze({
+  win: 'win',
+  lose: 'lose',
+  cancel: 'cancel',
+});
+
 //Builder Pattern
-export default class GameBuilder {
+export class GameBuilder {
   csl() {
     console.log(this);
     return this;
@@ -66,7 +72,7 @@ class Game {
     this.started = false;
     this.stopGameTimer();
     this.hideGameButton();
-    this.onGameStop && this.onGameStop('cancel');
+    this.onGameStop && this.onGameStop(Reason.cancel);
     sound.stopBackground();
     sound.playAlert();
   }
@@ -81,7 +87,7 @@ class Game {
       sound.playBug();
     }
     sound.stopBackground();
-    this.onGameStop && this.onGameStop(win ? 'win' : 'lose');
+    this.onGameStop && this.onGameStop(win ? Reason.win : Reason.lose);
   }
 
   onItemClick = (item) => {

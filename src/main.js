@@ -1,27 +1,25 @@
 'use strict';
 import PopUp from './popup.js';
-import GameBuilder from './game.js';
+import { GameBuilder, Reason } from './game.js';
 
 const gameFinishBanner = new PopUp();
 
 const game = new GameBuilder()
-  .csl()
-  .withGameDuration(4)
+  .withGameDuration(3)
   .withCarrotCount(3)
   .withBugCount(3)
-  .csl()
   .build();
 
 game.setGameStopListener((reason) => {
   let message;
   switch (reason) {
-    case 'cancel':
+    case Reason.cancel:
       message = 'REPLAY❓';
       break;
-    case 'win':
+    case Reason.win:
       message = 'YOU WON';
       break;
-    case 'lose':
+    case Reason.lose:
       message = 'YOU LOST';
       break;
   }
@@ -31,5 +29,3 @@ game.setGameStopListener((reason) => {
 gameFinishBanner.setClickListener(() => {
   game.start();
 });
-
-console.log(game);
