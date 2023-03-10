@@ -55,5 +55,3 @@ export default class Field {
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
-// private으로 해보기
-// audio 확인하기 html 기준인지.
