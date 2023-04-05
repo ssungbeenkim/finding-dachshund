@@ -1,4 +1,4 @@
-const alertSound = new Audio('./sound/alert.wav');
+const alertSound = new Audio('./sound/alert.mp3');
 const bgSound = new Audio('./sound/bg.mp3');
 const bugSound = new Audio('./sound/bug_pull.mp3');
 const winSound = new Audio('./sound/game_win.mp3');
