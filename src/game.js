@@ -45,7 +45,6 @@ class Game {
 
     this.gameField = new Field(this.carrotCount, this.bugCount);
     this.gameField.setClickListener(this.onItemClick);
-
     this.started = false;
     this.score = 0;
     this.timer = undefined;
@@ -64,6 +63,21 @@ class Game {
     sound.playBackground();
   }
 
+  restart(initCarrot, initBug) {
+    this.carrotCount = initCarrot;
+    this.bugCount = initBug;
+    this.initGameField();
+    this.start();
+  }
+
+  startNextGame(reason) {
+    this.stopGameTimer();
+    this.onGameStop && this.onGameStop(reason);
+    this.stageUp();
+    this.initGame();
+    this.startGameTimer(this.gameDuration);
+  }
+
   stop(reason) {
     this.started = false;
     this.stopGameTimer();
@@ -71,6 +85,13 @@ class Game {
     this.onGameStop && this.onGameStop(reason);
     sound.stopBackground();
   }
+
+  stageUp() {
+    this.carrotCount += 3;
+    this.bugCount += 3;
+    this.initGameField();
+  }
+
   onItemClick = (item) => {
     if (!this.started) {
       return;
@@ -79,7 +100,7 @@ class Game {
       this.score++;
       this.updateScoreBoard();
       if (this.score === this.carrotCount) {
-        this.stop(Reason.win);
+        this.startNextGame(Reason.win);
       }
     } else if (item === ItemType.bug) {
       this.stop(Reason.lose);
@@ -133,6 +154,12 @@ class Game {
     this.score = 0;
     this.gameScore.innerHTML = this.carrotCount;
     this.gameField.init();
+  }
+
+  initGameField() {
+    this.gameField.setClickListener(null);
+    this.gameField = new Field(this.carrotCount, this.bugCount);
+    this.gameField.setClickListener(this.onItemClick);
   }
 
   updateScoreBoard() {

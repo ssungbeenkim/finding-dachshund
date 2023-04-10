@@ -77,6 +77,7 @@ button {
 .carrot,
 .bug {
   transition: transform 100ms ease;
+  user-select: none;
 }
 
 .carrot:hover,

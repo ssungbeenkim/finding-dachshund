@@ -3,12 +3,16 @@ import PopUp from './popup.js';
 import { GameBuilder, Reason } from './game.js';
 import * as sound from './sound.js';
 
+const initCarrot = 2;
+const initBug = 4;
+const duration = 10;
+
 const gameFinishBanner = new PopUp();
 
 const game = new GameBuilder()
-  .withGameDuration(10)
-  .withCarrotCount(10)
-  .withBugCount(10)
+  .withGameDuration(duration)
+  .withCarrotCount(initCarrot)
+  .withBugCount(initBug)
   .build();
 
 game.setGameStopListener((reason) => {
@@ -17,19 +21,20 @@ game.setGameStopListener((reason) => {
     case Reason.cancel:
       message = 'REPLAY❓';
       sound.playAlert();
+      gameFinishBanner.showWithText(message);
       break;
     case Reason.win:
-      message = 'YOU WON';
       sound.playWin();
       break;
     case Reason.lose:
       message = 'YOU LOST';
       sound.playBug();
+      gameFinishBanner.showWithText(message);
       break;
   }
-  gameFinishBanner.showWithText(message);
+  // gameFinishBanner.showWithText(message);
 });
 
 gameFinishBanner.setClickListener(() => {
-  game.start();
+  game.restart(initCarrot, initBug);
 });
