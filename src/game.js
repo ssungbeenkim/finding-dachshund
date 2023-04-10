@@ -34,6 +34,7 @@ class Game {
     this.bugCount = bugCount;
     this.gameTimer = document.querySelector('.game__timer');
     this.gameScore = document.querySelector('.game__score');
+    this.gameLevel = document.querySelector('.game__level');
     this.gameBtn = document.querySelector('.game__button');
     this.gameBtn.addEventListener('click', () => {
       if (this.started) {
@@ -45,10 +46,10 @@ class Game {
 
     this.gameField = new Field(this.carrotCount, this.bugCount);
     this.gameField.setClickListener(this.onItemClick);
-
     this.started = false;
     this.score = 0;
     this.timer = undefined;
+    this.level = 1;
   }
 
   setGameStopListener(onGameStop) {
@@ -58,19 +59,45 @@ class Game {
   start() {
     this.started = true;
     this.initGame();
-    this.showStopBtn();
+    this.updateLevel();
+    this.showStopBtnAndLevel();
     this.showTimerAndScore();
     this.startGameTimer(this.gameDuration);
     sound.playBackground();
   }
 
+  restart(initCarrot, initBug) {
+    this.carrotCount = initCarrot;
+    this.bugCount = initBug;
+    this.level = 1;
+    this.initGameField();
+    this.start();
+  }
+
+  startNext(reason) {
+    this.stopGameTimer();
+    this.onGameStop && this.onGameStop(reason);
+    this.stageUp();
+    this.updateLevel();
+    this.initGame();
+    this.startGameTimer(this.gameDuration);
+  }
+
   stop(reason) {
     this.started = false;
     this.stopGameTimer();
-    this.hideGameButton();
+    this.hideGameButtonAndLevel();
     this.onGameStop && this.onGameStop(reason);
     sound.stopBackground();
   }
+
+  stageUp() {
+    this.level++;
+    this.carrotCount += 3;
+    this.bugCount += 3;
+    this.initGameField();
+  }
+
   onItemClick = (item) => {
     if (!this.started) {
       return;
@@ -79,14 +106,14 @@ class Game {
       this.score++;
       this.updateScoreBoard();
       if (this.score === this.carrotCount) {
-        this.stop(Reason.win);
+        this.startNext(Reason.win);
       }
     } else if (item === ItemType.bug) {
       this.stop(Reason.lose);
     }
   };
 
-  showStopBtn() {
+  showStopBtnAndLevel() {
     const icon = this.gameBtn.querySelector('.fa-solid');
     if (!icon) {
       return;
@@ -94,10 +121,12 @@ class Game {
     icon.classList.add('fa-stop');
     icon.classList.remove('fa-play');
     this.gameBtn.style.visibility = 'visible';
+    this.gameLevel.style.visibility = 'visible';
   }
 
-  hideGameButton() {
+  hideGameButtonAndLevel() {
     this.gameBtn.style.visibility = 'hidden';
+    this.gameLevel.style.visibility = 'hidden';
   }
 
   showTimerAndScore() {
@@ -129,10 +158,20 @@ class Game {
     this.gameTimer.innerText = `${minutes}:${seconds}`;
   }
 
+  updateLevel() {
+    this.gameLevel.innerText = `lv.${this.level}`;
+  }
+
   initGame() {
     this.score = 0;
     this.gameScore.innerHTML = this.carrotCount;
     this.gameField.init();
+  }
+
+  initGameField() {
+    this.gameField.setClickListener(null);
+    this.gameField = new Field(this.carrotCount, this.bugCount);
+    this.gameField.setClickListener(this.onItemClick);
   }
 
   updateScoreBoard() {

@@ -19,10 +19,26 @@ button {
 }
 
 .game__header {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 20px;
+}
+
+.game__level {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+  text-align: center;
+  line-height: 30px;
+  width: 60px;
+  height: 30px;
+  border: 3px solid black;
+  border-radius: 10px;
+  font-size: 20px;
+  visibility: hidden;
 }
 
 .game__button {
@@ -77,6 +93,7 @@ button {
 .carrot,
 .bug {
   transition: transform 100ms ease;
+  user-select: none;
 }
 
 .carrot:hover,
