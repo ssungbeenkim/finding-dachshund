@@ -34,6 +34,7 @@ class Game {
     this.bugCount = bugCount;
     this.gameTimer = document.querySelector('.game__timer');
     this.gameScore = document.querySelector('.game__score');
+    this.gameLevel = document.querySelector('.game__level');
     this.gameBtn = document.querySelector('.game__button');
     this.gameBtn.addEventListener('click', () => {
       if (this.started) {
@@ -48,6 +49,7 @@ class Game {
     this.started = false;
     this.score = 0;
     this.timer = undefined;
+    this.level = 1;
   }
 
   setGameStopListener(onGameStop) {
@@ -57,7 +59,8 @@ class Game {
   start() {
     this.started = true;
     this.initGame();
-    this.showStopBtn();
+    this.updateLevel();
+    this.showStopBtnAndLevel();
     this.showTimerAndScore();
     this.startGameTimer(this.gameDuration);
     sound.playBackground();
@@ -66,14 +69,16 @@ class Game {
   restart(initCarrot, initBug) {
     this.carrotCount = initCarrot;
     this.bugCount = initBug;
+    this.level = 1;
     this.initGameField();
     this.start();
   }
 
-  startNextGame(reason) {
+  startNext(reason) {
     this.stopGameTimer();
     this.onGameStop && this.onGameStop(reason);
     this.stageUp();
+    this.updateLevel();
     this.initGame();
     this.startGameTimer(this.gameDuration);
   }
@@ -81,12 +86,13 @@ class Game {
   stop(reason) {
     this.started = false;
     this.stopGameTimer();
-    this.hideGameButton();
+    this.hideGameButtonAndLevel();
     this.onGameStop && this.onGameStop(reason);
     sound.stopBackground();
   }
 
   stageUp() {
+    this.level++;
     this.carrotCount += 3;
     this.bugCount += 3;
     this.initGameField();
@@ -100,14 +106,14 @@ class Game {
       this.score++;
       this.updateScoreBoard();
       if (this.score === this.carrotCount) {
-        this.startNextGame(Reason.win);
+        this.startNext(Reason.win);
       }
     } else if (item === ItemType.bug) {
       this.stop(Reason.lose);
     }
   };
 
-  showStopBtn() {
+  showStopBtnAndLevel() {
     const icon = this.gameBtn.querySelector('.fa-solid');
     if (!icon) {
       return;
@@ -115,10 +121,12 @@ class Game {
     icon.classList.add('fa-stop');
     icon.classList.remove('fa-play');
     this.gameBtn.style.visibility = 'visible';
+    this.gameLevel.style.visibility = 'visible';
   }
 
-  hideGameButton() {
+  hideGameButtonAndLevel() {
     this.gameBtn.style.visibility = 'hidden';
+    this.gameLevel.style.visibility = 'hidden';
   }
 
   showTimerAndScore() {
@@ -148,6 +156,10 @@ class Game {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     this.gameTimer.innerText = `${minutes}:${seconds}`;
+  }
+
+  updateLevel() {
+    this.gameLevel.innerText = `lv.${this.level}`;
   }
 
   initGame() {
