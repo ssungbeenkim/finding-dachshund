@@ -87,7 +87,7 @@ class Game {
     this.started = false;
     this.stopGameTimer();
     this.hideGameButtonAndLevel();
-    this.onGameStop && this.onGameStop(reason);
+    this.onGameStop && this.onGameStop(reason); // level,score,time
     sound.stopBackground();
   }
 
@@ -109,7 +109,7 @@ class Game {
         this.startNext(Reason.win);
       }
     } else if (item === ItemType.bug) {
-      this.stop(Reason.lose);
+      this.stop(Reason.lose); // level, time, score
     }
   };
 
@@ -141,7 +141,7 @@ class Game {
       this.updateTimerText(remainingTimeSec);
       if (remainingTimeSec <= 0) {
         clearInterval(this.timer);
-        this.stop(this.score === this.carrotCount ? Reason.win : Reason.lose);
+        this.stop(this.score === this.carrotCount ? Reason.win : Reason.lose); // level, score, time
         return;
       }
       this.updateTimerText(--remainingTimeSec);

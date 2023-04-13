@@ -102,11 +102,12 @@ button {
 }
 
 .pop-up {
-  width: 400px;
-  height: 140px;
-  background-color: #00000090;
+  position: relative;
+  width: 800px;
+  height: 500px;
+  background-color: #00000078;
   margin: auto;
-  transform: translateY(-150%);
+  transform: translateY(-100%);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -118,9 +119,100 @@ button {
   display: none;
 }
 
+.pop-up__description {
+  font-weight: bold;
+  margin: 15px;
+  font-size: 40px;
+  color: rgb(255, 255, 255);
+}
+
+.pop-up__ranking {
+  /* background-color: aquamarine; */
+  width: 95%;
+  height: 75%;
+}
+
+/* st, nd 표기 */
+.ranking__list {
+  margin-top: 20px;
+  padding: 0 40px;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  list-style-type: none; /* 기본적으로 숫자 대신 사용할 스타일링을 설정 */
+  counter-reset: my-counter; /* 카운터를 초기화 */
+}
+
+.ranking__item::before {
+  counter-increment: my-counter; /* 카운터를 1씩 증가 */
+  content: counter(my-counter) 'st'; /* 카운터 값을 표시하고 "st" 문자열 추가 */
+  font-size: 25px; /* 폰트 크기 설정 */
+  font-weight: bold; /* 폰트 두께 설정 */
+  margin-right: 10px; /* 숫자와 문자열 사이의 간격 설정 */
+  position: absolute;
+  top: 10px;
+  left: 18px;
+  color:rgb(249, 249, 249)
+  /* 기존 스타일 */
+}
+
+.ranking__item:nth-child(2)::before {
+  content: counter(my-counter) 'nd'; /* 두 번째 .ranking__item 요소의 카운터 값 대신 "2nd" 표시 */
+}
+
+.ranking__item:nth-child(3)::before {
+  content: counter(my-counter) 'rd'; /* 세 번째 .ranking__item 요소의 카운터 값 대신 "3rd" 표시 */
+}
+
+.ranking__item:nth-child(n + 4)::before {
+  content: counter(my-counter) 'th'; /* 4번째 이후 .ranking__item 요소의 카운터 값 대신 "th" 표시 */
+}
+
+.ranking__list > ul,
+.ranking__list > li > ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* height: 40px; */
+}
+
+.ranking__list > ul > li {
+  /* background-color: bisque; */
+  color: aliceblue;
+  font-weight: bold;
+  width: 120px;
+  height: 15px;
+  font-size: 15px;
+  text-align: center;
+  line-height: 15px;
+}
+.ranking__list > li > ul > li {
+  /* background-color: aliceblue; */
+  /* font-weight: bold; */
+  width: 120px;
+  height: 50px;
+  font-size: 27px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.ranking__item {
+  background-color: rgba(255, 255, 255, 0.261);
+  border-radius: 5px;
+  position: relative;
+  /* 기존 스타일 */
+  /* border: 2px solid black; */
+}
+
 .pop-up__refresh {
-  width: 60px;
-  height: 60px;
+  position: absolute;
+  right: 30px;
+  bottom: 20px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   font-size: 24px;
   border: 3px solid black;
@@ -135,4 +227,8 @@ button {
 .pop-up__message {
   font-size: 24px;
   color: white;
+}
+
+.space {
+  with
 }

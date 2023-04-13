@@ -19,8 +19,10 @@ export default class PopUp {
     this.onClick = onClick;
   }
 
-  showWithText(text) {
-    this.popUpText.innerText = text;
+  showWithText() {
+    // , level, score, time
+    /* fetch, 내 순위 찾기, */
+    // this.popUpText.innerText = text;
     this.popUp.classList.remove('pop-up--hide');
   }
 }

@@ -16,20 +16,21 @@ const game = new GameBuilder()
   .build();
 
 game.setGameStopListener((reason) => {
+  // level,score
   let message;
   switch (reason) {
     case Reason.cancel:
-      message = 'REPLAY❓';
+      // message = 'REPLAY❓';
       sound.playAlert();
-      gameFinishBanner.showWithText(message);
+      gameFinishBanner.showWithText(); // level, score
       break;
     case Reason.win:
       sound.playWin();
       break;
     case Reason.lose:
-      message = 'YOU LOST';
+      // message = 'YOU LOST';
       sound.playBug();
-      gameFinishBanner.showWithText(message);
+      gameFinishBanner.showWithText(); // level,score
       break;
   }
   // gameFinishBanner.showWithText(message);
