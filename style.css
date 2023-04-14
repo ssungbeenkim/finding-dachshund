@@ -113,10 +113,14 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  transition: all 300ms ease-out;
 }
 
-.pop-up--hide {
-  display: none;
+.pop-up.pop-up--hide {
+  user-select: none;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0.8) translateY(-90%);
 }
 
 .pop-up__description {
@@ -152,20 +156,27 @@ button {
   margin-right: 10px; /* 숫자와 문자열 사이의 간격 설정 */
   position: absolute;
   top: 10px;
-  left: 18px;
-  color:rgb(249, 249, 249)
+  left: 35px;
+  color: rgb(4, 0, 0);
   /* 기존 스타일 */
 }
 
 .ranking__item:nth-child(2)::before {
-  content: counter(my-counter) 'nd'; /* 두 번째 .ranking__item 요소의 카운터 값 대신 "2nd" 표시 */
+  content: counter(my-counter) 'nd 🏅'; /* 두 번째 .ranking__item 요소의 카운터 값 대신 "2nd" 표시 */
+  color: gold;
 }
 
 .ranking__item:nth-child(3)::before {
-  content: counter(my-counter) 'rd'; /* 세 번째 .ranking__item 요소의 카운터 값 대신 "3rd" 표시 */
+  content: counter(my-counter) 'rd 🥈'; /* 세 번째 .ranking__item 요소의 카운터 값 대신 "3rd" 표시 */
+  color: silver;
 }
 
-.ranking__item:nth-child(n + 4)::before {
+.ranking__item:nth-child(4)::before {
+  content: counter(my-counter) 'th 🥉'; /* 4번째 이후 .ranking__item 요소의 카운터 값 대신 "th" 표시 */
+  color: rgb(84, 29, 0);
+}
+
+.ranking__item:nth-child(n + 5)::before {
   content: counter(my-counter) 'th'; /* 4번째 이후 .ranking__item 요소의 카운터 값 대신 "th" 표시 */
 }
 
@@ -194,9 +205,10 @@ button {
   /* font-weight: bold; */
   width: 120px;
   height: 50px;
-  font-size: 27px;
+  font-size: 30px;
   text-align: center;
   line-height: 50px;
+  color: rgb(0, 0, 0);
 }
 
 .ranking__item {
@@ -230,5 +242,5 @@ button {
 }
 
 .space {
-  with
+  width: 50px;
 }

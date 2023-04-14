@@ -86,7 +86,8 @@ class Game {
   stop(reason) {
     this.started = false;
     this.stopGameTimer();
-    this.hideGameButtonAndLevel();
+    this.hideTimerAndScore;
+    this.hideGameLevelScoreTimer();
     this.onGameStop && this.onGameStop(reason); // level,score,time
     sound.stopBackground();
   }
@@ -124,9 +125,11 @@ class Game {
     this.gameLevel.style.visibility = 'visible';
   }
 
-  hideGameButtonAndLevel() {
+  hideGameLevelScoreTimer() {
     this.gameBtn.style.visibility = 'hidden';
     this.gameLevel.style.visibility = 'hidden';
+    this.gameTimer.style.visibility = 'hidden';
+    this.gameScore.style.visibility = 'hidden';
   }
 
   showTimerAndScore() {
