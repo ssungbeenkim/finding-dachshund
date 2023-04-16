@@ -49,6 +49,7 @@ class Game {
     this.started = false;
     this.score = 0;
     this.timer = undefined;
+    this.remainingTimeSec = this.gameDuration;
     this.level = 1;
   }
 
@@ -84,11 +85,13 @@ class Game {
   }
 
   stop(reason) {
+    const playTime = this.gameDuration - this.remainingTimeSec;
     this.started = false;
     this.stopGameTimer();
     this.hideTimerAndScore;
     this.hideGameLevelScoreTimer();
-    this.onGameStop && this.onGameStop(reason); // level,score,time
+    this.onGameStop &&
+      this.onGameStop(reason, this.level, this.score, playTime);
     sound.stopBackground();
   }
 
@@ -110,7 +113,7 @@ class Game {
         this.startNext(Reason.win);
       }
     } else if (item === ItemType.bug) {
-      this.stop(Reason.lose); // level, time, score
+      this.stop(Reason.lose);
     }
   };
 
@@ -138,16 +141,15 @@ class Game {
   }
 
   startGameTimer() {
-    let remainingTimeSec = this.gameDuration;
-    this.updateTimerText(remainingTimeSec);
+    this.updateTimerText(this.remainingTimeSec);
     this.timer = setInterval(() => {
-      this.updateTimerText(remainingTimeSec);
-      if (remainingTimeSec <= 0) {
+      this.updateTimerText(this.remainingTimeSec);
+      if (this.remainingTimeSec <= 0) {
         clearInterval(this.timer);
-        this.stop(this.score === this.carrotCount ? Reason.win : Reason.lose); // level, score, time
+        this.stop(this.score === this.carrotCount ? Reason.win : Reason.lose);
         return;
       }
-      this.updateTimerText(--remainingTimeSec);
+      this.updateTimerText(--this.remainingTimeSec);
     }, 1000);
   }
 
@@ -175,6 +177,7 @@ class Game {
     this.gameField.setClickListener(null);
     this.gameField = new Field(this.carrotCount, this.bugCount);
     this.gameField.setClickListener(this.onItemClick);
+    this.remainingTimeSec = this.gameDuration;
   }
 
   updateScoreBoard() {

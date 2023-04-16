@@ -15,25 +15,20 @@ const game = new GameBuilder()
   .withBugCount(initBug)
   .build();
 
-game.setGameStopListener((reason) => {
-  // level,score
-  let message;
+game.setGameStopListener((reason, level, score, time) => {
   switch (reason) {
     case Reason.cancel:
-      // message = 'REPLAY❓';
       sound.playAlert();
-      gameFinishBanner.showWithText(); // level, score
+      gameFinishBanner.showWithText(level, score, time);
       break;
     case Reason.win:
       sound.playWin();
       break;
     case Reason.lose:
-      // message = 'YOU LOST';
       sound.playBug();
-      gameFinishBanner.showWithText(); // level,score
+      gameFinishBanner.showWithText(level, score, time);
       break;
   }
-  // gameFinishBanner.showWithText(message);
 });
 
 gameFinishBanner.setClickListener(() => {
