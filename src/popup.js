@@ -5,7 +5,7 @@ export default class PopUp {
     this.popUpText = document.querySelector('.pop-up__message');
     this.popUpRefresh = document.querySelector('.pop-up__refresh');
     this.popUp = document.querySelector('.pop-up');
-    this.ranker = false;
+    this.rank = null;
     this.popUpRefresh.addEventListener('click', () => {
       this.onClick && this.onClick();
       this.hide();
@@ -21,34 +21,65 @@ export default class PopUp {
   }
 
   async showWithText(level, score, time) {
-    // 아이템 로드
+    // 아이템 로드, 로딩스피너 보여주기 *
     const data = await this.loadItems();
-    // 랭커인지 확인
-    if (this.isRanker(data, level, score, time)) {
-      //리스트 요소 만들어서 추가, 랭커인 경우 임시 데이터를 입력할 수 있다.
-      displayItems(data, level, score, time);
-      console.log('랭커입니다.');
-    } else {
-      //리스트 요소 만들어서 추가
-      console.log('랭커가 아닙니다.');
-    }
-
-    // 팝업 보여주기
+    this.rank = this.findRank(data, { level, score, time });
+    this.displayItems(data, level, score, time);
     this.popUp.classList.remove('pop-up--hide');
   }
 
-  displayItems(data, level, score, time) {}
-
-  isRanker(data, level, score, time) {
-    const newData = { level, score, time };
-    const rank = this.findRank(data, newData);
-    if (rank <= 5) {
-      this.Ranker = true;
-      return true;
+  displayItems(data, level, score, time) {
+    const positionElement = document.querySelector(
+      '.ranking-list__description'
+    );
+    if (this.rank <= 5) {
+      console.log('랭커입니다.');
     } else {
-      this.Ranker = false;
-      return false;
+      console.log('랭커가 아닙니다.');
+      // data의 1~5인덱스를 가져와 저장한다.
+      const rankerData = data.slice(0, 5);
+      console.log(rankerData);
+      const rankerHtml = rankerData
+        .map((item) => this.createRankerHtml(item))
+        .join('');
+      console.log(rankerHtml);
+      positionElement.insertAdjacentHTML('afterend', rankerHtml);
     }
+  }
+
+  createRankerHtml(item) {
+    return `
+    <li class="ranking__item">
+      <ul class="rank__list">
+        <span class="space"></span>
+        <li class="name">${item.name}</li>
+        <li class="stage">${item.level}</li>
+        <li class="score">${item.score}</li>
+        <li class="time">${item.time}</li>
+      </ul>
+    </li>
+    `;
+  }
+
+  createrPlayerHtml(item) {
+    return `
+    <li class="ranking__item player">
+      <ul class="rank__list">
+        <span class="space"></span>
+        <li class="name">
+          <form class="input__form">
+            <input type="text" class="form__text" />
+            <button class="form__submit">
+              <i class="fa-solid fa-check"></i>
+            </button>
+          </form>
+        </li>
+        <li class="stage">2</li>
+        <li class="score">20</li>
+        <li class="time">30:00</li>
+      </ul>
+    </li>
+    `;
   }
 
   findRank(data, newData) {
