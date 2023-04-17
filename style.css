@@ -1,3 +1,39 @@
+@keyframes rainbow-border {
+  0% {
+    border-color: rgb(245, 138, 72);
+  }
+  10% {
+    border-color: orange;
+  }
+  20% {
+    border-color: rgb(238, 238, 128);
+  }
+  30% {
+    border-color: rgb(172, 255, 172);
+  }
+  40% {
+    border-color: rgb(133, 133, 255);
+  }
+  50% {
+    border-color: rgb(209, 145, 255);
+  }
+  60% {
+    border-color: violet;
+  }
+  70% {
+    border-color: rgb(202, 143, 202);
+  }
+  80% {
+    border-color: pink;
+  }
+  90% {
+    border-color: skyblue;
+  }
+  100% {
+    border-color: rgb(243, 128, 128);
+  }
+}
+
 body {
   background-color: black;
 }
@@ -112,20 +148,21 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+  justify-content: space-around;
   transition: all 300ms ease-out;
 }
 
-.pop-up.pop-up--hide {
+/* .pop-up.pop-up--hide {
   user-select: none;
   visibility: hidden;
   opacity: 0;
   transform: scale(0.8) translateY(-90%);
-}
+} */
 
 .pop-up__description {
   font-weight: bold;
-  margin: 15px;
+  margin: 10px;
   font-size: 40px;
   color: rgb(255, 255, 255);
 }
@@ -133,12 +170,13 @@ button {
 .pop-up__ranking {
   /* background-color: aquamarine; */
   width: 95%;
-  height: 75%;
+  height: 85%;
 }
 
 /* st, nd 표기 */
 .ranking__list {
-  margin-top: 20px;
+  /* margin-top: 10px; */
+  margin: 0;
   padding: 0 40px;
   height: 90%;
   display: flex;
@@ -156,7 +194,7 @@ button {
   margin-right: 10px; /* 숫자와 문자열 사이의 간격 설정 */
   position: absolute;
   top: 10px;
-  left: 35px;
+  left: 25px;
   color: rgb(4, 0, 0);
   /* 기존 스타일 */
 }
@@ -168,12 +206,12 @@ button {
 
 .ranking__item:nth-child(3)::before {
   content: counter(my-counter) 'rd 🥈'; /* 세 번째 .ranking__item 요소의 카운터 값 대신 "3rd" 표시 */
-  color: silver;
+  color: rgb(217, 217, 217);
 }
 
 .ranking__item:nth-child(4)::before {
   content: counter(my-counter) 'th 🥉'; /* 4번째 이후 .ranking__item 요소의 카운터 값 대신 "th" 표시 */
-  color: rgb(84, 29, 0);
+  color: rgb(206, 72, 0);
 }
 
 .ranking__item:nth-child(n + 5)::before {
@@ -211,12 +249,65 @@ button {
   color: rgb(0, 0, 0);
 }
 
+.ranking__list > li > ul > li.name,
+.ranking__list > ul > li.name {
+  width: 180px;
+}
+
 .ranking__item {
   background-color: rgba(255, 255, 255, 0.261);
   border-radius: 5px;
   position: relative;
   /* 기존 스타일 */
   /* border: 2px solid black; */
+}
+
+.ranking__item.player {
+  background-color: rgba(255, 240, 30, 0.326);
+  border: 2px solid;
+  animation: rainbow-border 10s infinite;
+}
+
+.input__form {
+  /* background-color: aquamarine; */
+  padding-left: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form__text {
+  width: 100%;
+  height: 30px;
+  border: none;
+  background-color: rgba(189, 230, 255, 0.627);
+  color: rgb(5, 0, 0);
+  font-size: 20px;
+  text-align: center;
+  /* font-weight: bold; */
+  outline: none;
+  /* border: 2px solid rgb(255, 179, 120); */
+  border-radius: 5px;
+  text-decoration: none;
+  border-bottom: 1px solid transparent; /* 밑줄을 투명한 색으로 만듭니다 */
+  box-shadow: none; /* 그림자를 제거합니다 */
+}
+
+.form__submit {
+  width: 40px;
+  height: 100%;
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  transition: all 300ms ease-in;
+}
+
+.form__submit:hover {
+  transform: scale(1.2);
+  color: red;
 }
 
 .pop-up__refresh {
@@ -242,5 +333,5 @@ button {
 }
 
 .space {
-  width: 50px;
+  width: 70px;
 }
