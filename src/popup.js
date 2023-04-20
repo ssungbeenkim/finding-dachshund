@@ -14,6 +14,10 @@ export default class PopUp {
 
   hide() {
     this.popUp.classList.add('pop-up--hide');
+    const rankingItems = document.querySelectorAll('.ranking__item');
+    rankingItems.forEach((item) => {
+      item.remove();
+    });
   }
 
   setClickListener(onClick) {
@@ -21,7 +25,7 @@ export default class PopUp {
   }
 
   async showWithText(level, score, time) {
-    // 아이템 로드, 로딩스피너 보여주기 *
+    // 아이템 로드, 로딩스피너 ?
     const data = await this.loadItems();
     this.rank = this.findRank(data, { level, score, time });
     this.displayItems(data, level, score, time);
@@ -32,17 +36,39 @@ export default class PopUp {
     const positionElement = document.querySelector(
       '.ranking-list__description'
     );
+    const rankerData = data.slice(0, 5);
     if (this.rank <= 5) {
-      console.log('랭커입니다.');
+      // 랭커일 경우
+      const rankerHtmlArr = rankerData.map((item) =>
+        this.createRankerHtml(item)
+      );
+      const playerHtml = this.createPlayerHtml({ level, score, time });
+      rankerHtmlArr.splice(this.rank - 1, 0, playerHtml).pop();
+      const rankerHtml = rankerHtmlArr.join('');
+      positionElement.insertAdjacentHTML('afterend', rankerHtml);
+      // 랭커가 입력을 submit하면 랭킹이 저장되고, 랭킹이 저장되면 랭킹이 다시 로드된다.
+      // 일단 다시 fetch해서 보여주는 부분으로 만들고 나중에 리팩토링
+      const form = document.querySelector('.input__form');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.querySelector('.form__text').value;
+        const ranker = { name, level, score, time };
+        const newData = await this.loadItems();
+        const newRankerHtml = newData
+          .slice(0, 5)
+          .map((item) => this.createRankerHtml(item))
+          .join('');
+        const rankingItems = document.querySelectorAll('.ranking__item');
+        rankingItems.forEach((item) => {
+          item.remove();
+        });
+        positionElement.insertAdjacentHTML('afterend', newRankerHtml);
+      });
     } else {
-      console.log('랭커가 아닙니다.');
-      // data의 1~5인덱스를 가져와 저장한다.
-      const rankerData = data.slice(0, 5);
-      console.log(rankerData);
+      // 랭커가 아닌 경우
       const rankerHtml = rankerData
         .map((item) => this.createRankerHtml(item))
         .join('');
-      console.log(rankerHtml);
       positionElement.insertAdjacentHTML('afterend', rankerHtml);
     }
   }
@@ -61,7 +87,7 @@ export default class PopUp {
     `;
   }
 
-  createrPlayerHtml(item) {
+  createPlayerHtml(item) {
     return `
     <li class="ranking__item player">
       <ul class="rank__list">
@@ -74,9 +100,9 @@ export default class PopUp {
             </button>
           </form>
         </li>
-        <li class="stage">2</li>
-        <li class="score">20</li>
-        <li class="time">30:00</li>
+        <li class="stage">${item.level}</li>
+        <li class="score">${item.score}</li>
+        <li class="time">${item.time}</li>
       </ul>
     </li>
     `;
