@@ -36,7 +36,7 @@ export default class PopUp {
     const positionElement = document.querySelector(
       '.ranking-list__description'
     );
-    const rankerData = data.slice(0, 5);
+    const rankerData = data.slice(0, 5); // Todo: map을 사용하는 부분 함수로 빼기
     if (this.rank <= 5) {
       // 랭커일 경우
       const rankerHtmlArr = rankerData.map((item) =>
@@ -47,22 +47,23 @@ export default class PopUp {
       const rankerHtml = rankerHtmlArr.join('');
       positionElement.insertAdjacentHTML('afterend', rankerHtml);
       // 랭커가 입력을 submit하면 랭킹이 저장되고, 랭킹이 저장되면 랭킹이 다시 로드된다.
-      // 일단 다시 fetch해서 보여주는 부분으로 만들고 나중에 리팩토링
+      // Todo : 일단 다시 fetch해서 보여주는 부분으로 만들고 나중에 리팩토링
       const form = document.querySelector('.input__form');
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const name = document.querySelector('.form__text').value;
-        const ranker = { name, level, score, time };
-        const newData = await this.loadItems();
+        const ranker = { name, level, score, time }; // 현재 랭커의 데이터 생성.
+        const newData = await this.loadItems(); // 데이터베이스에 추가후 다시 받아올것임.
         const newRankerHtml = newData
           .slice(0, 5)
           .map((item) => this.createRankerHtml(item))
           .join('');
         const rankingItems = document.querySelectorAll('.ranking__item');
         rankingItems.forEach((item) => {
-          item.remove();
+          item.remove(); // 기존의 리스트 삭제
         });
         positionElement.insertAdjacentHTML('afterend', newRankerHtml);
+        // 새로 만든 리스트 추가
       });
     } else {
       // 랭커가 아닌 경우
@@ -109,6 +110,7 @@ export default class PopUp {
   }
 
   findRank(data, newData) {
+    // 정렬된 리스트를 불러와서 랭크를 찾는다.
     let rank = 1;
     data.forEach((d) => {
       if (d.level > newData.level) {
@@ -140,7 +142,7 @@ export default class PopUp {
   }
 
   loadItems() {
-    // 로딩스피너 보여주기 ?
+    // Todo : 로딩스피너 보여주기
     return fetch('../data/data.json')
       .then((response) => response.json())
       .catch((err) => console.log('error', err));
