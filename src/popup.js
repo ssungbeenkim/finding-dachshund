@@ -10,6 +10,7 @@ export default class PopUp {
       this.onClick && this.onClick();
       this.hide();
     });
+    this.positionElement;
   }
 
   hide() {
@@ -25,57 +26,51 @@ export default class PopUp {
   }
 
   async showWithText(level, score, time) {
-    // 아이템 로드, 로딩스피너 ?
-    const data = await this.loadItems();
+    // TODO :로딩스피너
+    const data = await this.loadItems(); // await ?
     this.rank = this.findRank(data, { level, score, time });
     this.displayItems(data, level, score, time);
     this.popUp.classList.remove('pop-up--hide');
   }
 
   displayItems(data, level, score, time) {
-    const positionElement = document.querySelector(
-      '.ranking-list__description'
-    );
-    const rankerData = data.slice(0, 5); // Todo: map을 사용하는 부분 함수로 빼기
+    this.positionElement = document.querySelector('.ranking-list__description');
     if (this.rank <= 5) {
-      // 랭커일 경우
-      const rankerHtmlArr = rankerData.map((item) =>
-        this.createRankerHtml(item)
-      );
+      const rankerHtmlArr = this.createRankerHtmlArr(data, 4);
       const playerHtml = this.createPlayerHtml({ level, score, time });
       rankerHtmlArr.splice(this.rank - 1, 0, playerHtml).pop();
       const rankerHtml = rankerHtmlArr.join('');
-      positionElement.insertAdjacentHTML('afterend', rankerHtml);
-      // 랭커가 입력을 submit하면 랭킹이 저장되고, 랭킹이 저장되면 랭킹이 다시 로드된다.
-      // Todo : 일단 다시 fetch해서 보여주는 부분으로 만들고 나중에 리팩토링
-      const form = document.querySelector('.input__form');
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const name = document.querySelector('.form__text').value;
-        const ranker = { name, level, score, time }; // 현재 랭커의 데이터 생성.
-        const newData = await this.loadItems(); // 데이터베이스에 추가후 다시 받아올것임.
-        const newRankerHtml = newData
-          .slice(0, 5)
-          .map((item) => this.createRankerHtml(item))
-          .join('');
-        const rankingItems = document.querySelectorAll('.ranking__item');
-        rankingItems.forEach((item) => {
-          item.remove(); // 기존의 리스트 삭제
-        });
-        positionElement.insertAdjacentHTML('afterend', newRankerHtml);
-        // 새로 만든 리스트 추가
-      });
+      this.positionElement.insertAdjacentHTML('afterend', rankerHtml);
+      this.handleSubmit(level, score, time);
     } else {
       // 랭커가 아닌 경우
-      const rankerHtml = rankerData
-        .map((item) => this.createRankerHtml(item))
-        .join('');
-      positionElement.insertAdjacentHTML('afterend', rankerHtml);
+      const rankerHtml = this.createRankerHtmlArr(data, 5).join('');
+      this.positionElement.insertAdjacentHTML('afterend', rankerHtml);
     }
   }
 
-  createRankerHtml(item) {
-    return `
+  // 랭커가 입력을 submit하면 랭킹이 저장되고, 랭킹이 저장되면 랭킹이 다시 로드된다.
+  // Todo : 일단 다시 fetch해서 보여주는 부분으로 만들고 나중에 리팩토링
+  handleSubmit(level, score, time) {
+    const form = document.querySelector('.input__form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.querySelector('.form__text').value;
+      const ranker = { name, level, score, time }; // 현재 랭커의 데이터 생성.
+      const newData = await this.loadItems(); // 데이터베이스에 추가후 다시 받아올것임.
+      const newRankerHtml = this.createRankerHtmlArr(newData, 5).join('');
+      const rankingItems = document.querySelectorAll('.ranking__item');
+      rankingItems.forEach((item) => {
+        item.remove(); // 기존의 리스트 삭제
+      });
+      this.positionElement.insertAdjacentHTML('afterend', newRankerHtml);
+      // 새로 만든 리스트 추가
+    });
+  }
+
+  createRankerHtmlArr(data, listLength) {
+    const htmlArr = data.slice(0, listLength).map((item) => {
+      return `
     <li class="ranking__item">
       <ul class="rank__list">
         <span class="space"></span>
@@ -86,6 +81,8 @@ export default class PopUp {
       </ul>
     </li>
     `;
+    });
+    return htmlArr;
   }
 
   createPlayerHtml(item) {

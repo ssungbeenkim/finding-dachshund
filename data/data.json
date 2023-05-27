@@ -34,25 +34,25 @@
   {
     "name": "user5",
     "password": "1234",
-    "level": "3",
-    "score": "3",
-    "time": "3",
+    "level": "1",
+    "score": "1",
+    "time": "1",
     "id": "5"
   },
   {
     "name": "user6",
     "password": "1234",
-    "level": "3",
-    "score": "3",
-    "time": "4",
+    "level": "1",
+    "score": "1",
+    "time": "1",
     "id": "6"
   },
   {
     "name": "user6",
     "password": "1234",
-    "level": "3",
-    "score": "3",
-    "time": "4",
+    "level": "1",
+    "score": "1",
+    "time": "1",
     "id": "8"
   }
 ]
