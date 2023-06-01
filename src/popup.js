@@ -57,7 +57,7 @@ export default class PopUp {
       e.preventDefault();
       const name = document.querySelector('.form__text').value;
       const ranker = { name, level, score, time }; // 현재 랭커의 데이터 생성.
-      const newData = await this.loadItems(); // 데이터베이스에 추가후 다시 받아올것임.
+      const newData = await this.postItem(ranker);
       const newRankerHtml = this.createRankerHtmlArr(newData, 5).join('');
       const rankingItems = document.querySelectorAll('.ranking__item');
       rankingItems.forEach((item) => {
@@ -138,9 +138,22 @@ export default class PopUp {
     return rank;
   }
 
-  loadItems() {
-    // Todo : 로딩스피너 보여주기
-    return fetch('../data/data.json')
+  async loadItems() {
+    return await fetch('http://localhost:8080/scores', {
+      // .env로 빼기
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log('error', err));
+  }
+
+  async postItem(item) {
+    return await fetch('http://localhost:8080/scores', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(item),
+    })
       .then((response) => response.json())
       .catch((err) => console.log('error', err));
   }
