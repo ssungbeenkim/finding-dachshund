@@ -32,6 +32,5 @@ game.setGameStopListener((reason, level, score, time) => {
 });
 
 gameFinishBanner.setClickListener(() => {
-  console.log('game restart');
   game.restart(initCarrot, initBug);
 });

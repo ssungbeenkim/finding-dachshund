@@ -60,9 +60,13 @@ export default class PopUp {
     const form = document.querySelector('.input__form');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = document.querySelector('.form__text').value;
-      if (name.trim() === '') {
+      const name = document.querySelector('.form__text').value.trim();
+      if (name === '') {
         alert('Please enter your name.');
+        return;
+      }
+      if (name.length > 10) {
+        alert('Please enter your name within 10 characters.');
         return;
       }
       const ranker = { name, level, score, time }; // 현재 랭커의 데이터 생성.
@@ -101,7 +105,7 @@ export default class PopUp {
         <span class="space"></span>
         <li class="name">
           <form class="input__form">
-            <input type="text" class="form__text"  placeholder="Enter name" required/>
+            <input type="text" class="form__text" pattern="[A-Za-z]*" title="ex) Im the king" placeholder="Enter name" required/>
             <button class="form__submit">
               <i class="fa-solid fa-check"></i>
             </button>

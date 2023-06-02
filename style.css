@@ -251,6 +251,9 @@ button {
 .ranking__list > li > ul > li.name,
 .ranking__list > ul > li.name {
   width: 180px;
+  font-size: 23px;
+  /* font-weight: bold; */
+  white-space: nowrap;
 }
 
 .ranking__item {
