@@ -61,6 +61,10 @@ export default class PopUp {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = document.querySelector('.form__text').value;
+      if (name.trim() === '') {
+        alert('Please enter your name.');
+        return;
+      }
       const ranker = { name, level, score, time }; // 현재 랭커의 데이터 생성.
       const newData = await this.postItem(ranker);
       const newRankerHtml = this.createRankerHtmlArr(newData, 5).join('');
