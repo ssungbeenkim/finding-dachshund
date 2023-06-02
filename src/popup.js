@@ -1,5 +1,7 @@
 'use strict';
 
+const BASE_URL = 'http://localhost:8080/scores';
+
 export default class PopUp {
   constructor() {
     this.popUpText = document.querySelector('.pop-up__message');
@@ -41,6 +43,10 @@ export default class PopUp {
       rankerHtmlArr.splice(this.rank - 1, 0, playerHtml).pop();
       const rankerHtml = rankerHtmlArr.join('');
       this.positionElement.insertAdjacentHTML('afterend', rankerHtml);
+      console.log(document.querySelector('.form__text'));
+      setTimeout(function () {
+        document.querySelector('.form__text').focus();
+      }, 100);
       this.handleSubmit(level, score, time);
     } else {
       // 랭커가 아닌 경우
@@ -92,7 +98,7 @@ export default class PopUp {
         <span class="space"></span>
         <li class="name">
           <form class="input__form">
-            <input type="text" class="form__text" />
+            <input type="text" class="form__text"  placeholder="Enter name" />
             <button class="form__submit">
               <i class="fa-solid fa-check"></i>
             </button>
@@ -139,8 +145,7 @@ export default class PopUp {
   }
 
   async loadItems() {
-    return await fetch('http://localhost:8080/scores', {
-      // .env로 빼기
+    return await fetch(BASE_URL, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -149,7 +154,7 @@ export default class PopUp {
   }
 
   async postItem(item) {
-    return await fetch('http://localhost:8080/scores', {
+    return await fetch(BASE_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(item),
