@@ -43,7 +43,6 @@ export default class PopUp {
       rankerHtmlArr.splice(this.rank - 1, 0, playerHtml).pop();
       const rankerHtml = rankerHtmlArr.join('');
       this.positionElement.insertAdjacentHTML('afterend', rankerHtml);
-      console.log(document.querySelector('.form__text'));
       setTimeout(function () {
         document.querySelector('.form__text').focus();
       }, 100);
@@ -98,7 +97,7 @@ export default class PopUp {
         <span class="space"></span>
         <li class="name">
           <form class="input__form">
-            <input type="text" class="form__text"  placeholder="Enter name" />
+            <input type="text" class="form__text"  placeholder="Enter name" required/>
             <button class="form__submit">
               <i class="fa-solid fa-check"></i>
             </button>
