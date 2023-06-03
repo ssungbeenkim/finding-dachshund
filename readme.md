@@ -1,11 +1,17 @@
 # Finding Dachshund 🦮
 
 <br/>
-
+ 
 ## 프로젝트 소개 🌭
+
+<!-- ![img2](https://github.com/wandakim/find-dachshund/assets/74309458/5f9ef96a-6e1c-4b8c-9b28-91a326fe35a2)
+![img1](https://github.com/wandakim/find-dachshund/assets/74309458/3b52b6ef-9d5a-4da7-930b-9d99608feb03) -->
+<img src="https://github.com/wandakim/find-dachshund/assets/74309458/3b52b6ef-9d5a-4da7-930b-9d99608feb03" a2  width="280" />
+<img src="https://github.com/wandakim/find-dachshund/assets/74309458/5f9ef96a-6e1c-4b8c-9b28-91a326fe35a2" a2  width="270" />
 
 - 핫도그 사이에 숨은 닥스훈트를 찾는 웹게임입니다.
 - [게임 해보기](https://genuine-smakager-724eeb.netlify.app)
+- [Server Repository](https://github.com/wandakim/hotdog-server)
 
 <br />
 
@@ -40,6 +46,9 @@
   <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=heroku&logoColor=white">
   <img src="https://img.shields.io/badge/heroku-430098?style=for-the-badge&logo=netlify&logoColor=white">
   <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
+  <img src="https://img.shields.io/badge/sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white">
+  <img src="https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white">
+  <!-- sequelizeorm, postgressqul -->
 
 </div>
 
@@ -70,6 +79,10 @@
 
 ### Need to Fix
 
-- [ ] 아이템 요소끼리 겹치지 않게 배치
-- [ ] 이미지, 사운드 파일 용량 줄이고 TTFB 단축
-- [ ] 음소거 가능하도록 하기
+- 아이템 요소끼리 겹치지 않게 배치
+- 이미지, 사운드 파일 용량 줄이고 TTFB 단축
+  - 플레이에 필요한 리소스가 로드 된 후에 시작할 수 있게 하거나 할 수 있을까?
+- 음소거 가능하도록 하기
+- 로딩 스피너
+- 랭킹 등록 범위 10위까지로 업데이트하고 시간 데이터 추가예정
+- heroku 게임 시작되면 서버 깨우도록 하자.
