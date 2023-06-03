@@ -5,7 +5,7 @@
 ## 프로젝트 소개 🌭
 
 - 핫도그 사이에 숨은 닥스훈트를 찾는 웹게임입니다.
-- [게임 해보기](https://wandakim.github.io/find-dachshund/)
+- [게임 해보기](https://genuine-smakager-724eeb.netlify.app)
 
 <br />
 
