@@ -1,6 +1,6 @@
 'use strict';
 
-const BASE_URL = 'http://localhost:8080/scores';
+const BASE_URL = 'https://find-dachshund.herokuapp.com/';
 
 export default class PopUp {
   constructor() {
