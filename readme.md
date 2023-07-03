@@ -43,7 +43,7 @@
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white"> 
   <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white">
   <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
-  <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=heroku&logoColor=white">
+  <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white">
   <img src="https://img.shields.io/badge/heroku-430098?style=for-the-badge&logo=netlify&logoColor=white">
   <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
   <img src="https://img.shields.io/badge/sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white">
@@ -60,13 +60,13 @@
 
 - [x] 타이머와 아이템 갯수로 게임 플레이
 - [x] 클래스 단위로 나누어 리펙토링
+- [ ] TypeScript로 변환
 
 ### Nice to have
 
 - [x] 게임 레벨 기능 추가 및 다음 게임으로 자동 전환
 - [x] 및 다음 게임 자동 생성 후 전환
 - [ ] 실시간 데이터베이스 랭킹 조회 및 확인 후 창 자동전환
-- [ ] TypeScript로 변환
 - [ ] 랭킹 리스트를 보여줄 때는 스크롤이 되도록 해서 5위 이하까지 볼 수 있게
 
 ### Good to have
@@ -85,4 +85,5 @@
 - 음소거 가능하도록 하기
 - 로딩 스피너
 - 랭킹 등록 범위 10위까지로 업데이트하고 시간 데이터 추가예정
-- heroku 게임 시작되면 서버 깨우도록 하자.
+- 게임 시작시 서버 깨워두기
+- 허용되지 않은 API 요청에 대한 보안요소 추가하기
