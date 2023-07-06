@@ -2,32 +2,32 @@ import * as sound from './sound.js';
 ('use strict');
 const itemSize = 100;
 export const ItemType = Object.freeze({
-    carrot: 'carrot',
-    bug: 'bug',
+    puppy: 'puppy',
+    hotdog: 'hotdog',
 });
 export class Field {
-    constructor(carrotCount, bugCount) {
+    constructor(puppyCount, hotdogCount) {
         this.onClick = (event) => {
             const target = event.target;
-            if (target.matches('.carrot')) {
+            if (target.matches('.puppy')) {
                 target.remove();
-                sound.playCarrot();
-                this.onItemClick && this.onItemClick(ItemType.carrot);
+                sound.playPuppy();
+                this.onItemClick && this.onItemClick(ItemType.puppy);
             }
-            else if (target.matches('.bug')) {
-                this.onItemClick && this.onItemClick(ItemType.bug);
+            else if (target.matches('.hotdog')) {
+                this.onItemClick && this.onItemClick(ItemType.hotdog);
             }
         };
-        this.carrotCount = carrotCount;
-        this.bugCount = bugCount;
+        this.puppyCount = puppyCount;
+        this.hotdogCount = hotdogCount;
         this.field = document.querySelector('.game__field');
         this.fieldRect = this.field.getBoundingClientRect();
         this.field.addEventListener('click', this.onClick);
     }
     init() {
         this.field.innerHTML = '';
-        this._addItem('carrot', this.carrotCount, 'img/carrot.png');
-        this._addItem('bug', this.bugCount, 'img/bug.png');
+        this._addItem('puppy', this.puppyCount, 'img/puppy.png');
+        this._addItem('hotdog', this.hotdogCount, 'img/hotdog.png');
     }
     setClickListener(onItemClick) {
         this.onItemClick = onItemClick;
@@ -37,6 +37,7 @@ export class Field {
         const y1 = 0;
         const x2 = this.fieldRect.width - itemSize;
         const y2 = this.fieldRect.height - itemSize;
+        // TODO: 아이템이 겹치지 않게 생성하는 로직 추가
         for (let i = 0; i < count; i++) {
             const item = document.createElement('img');
             item.setAttribute('class', className);
@@ -53,3 +54,4 @@ export class Field {
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+//# sourceMappingURL=field.js.map

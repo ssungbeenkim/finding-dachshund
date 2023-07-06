@@ -5,44 +5,43 @@ export const Reason = Object.freeze({
     lose: 'lose',
     cancel: 'cancel',
 });
-//Builder Pattern
 export class GameBuilder {
     withGameDuration(duration) {
         this.gameDuration = duration;
         return this;
     }
-    withCarrotCount(num) {
-        this.carrotCount = num;
+    withPuppyCount(num) {
+        this.puppyCount = num;
         return this;
     }
-    withBugCount(num) {
-        this.bugCount = num;
+    withHotdogCount(num) {
+        this.hotdogCount = num;
         return this;
     }
     build() {
-        return new Game(this.gameDuration, this.carrotCount, this.bugCount);
+        return new Game(this.gameDuration, this.puppyCount, this.hotdogCount);
     }
 }
 class Game {
-    constructor(gameDuration, carrotCount, bugCount) {
+    constructor(gameDuration, puppyCount, hotdogCount) {
         this.onItemClick = (item) => {
             if (!this.started) {
                 return;
             }
-            if (item === ItemType.carrot) {
+            if (item === ItemType.puppy) {
                 this.score++;
                 this.updateScoreBoard();
-                if (this.score === this.carrotCount) {
-                    this.startNext(Reason.win);
+                if (this.score === this.puppyCount) {
+                    this.startNext();
                 }
             }
-            else if (item === ItemType.bug) {
+            else if (item === ItemType.hotdog) {
                 this.stop(Reason.lose);
             }
         };
         this.gameDuration = gameDuration;
-        this.carrotCount = carrotCount;
-        this.bugCount = bugCount;
+        this.puppyCount = puppyCount;
+        this.hotdogCount = hotdogCount;
         this.gameTimer = document.querySelector('.game__timer');
         this.gameScore = document.querySelector('.game__score');
         this.gameLevel = document.querySelector('.game__level');
@@ -55,7 +54,7 @@ class Game {
                 this.start();
             }
         });
-        this.gameField = new Field(this.carrotCount, this.bugCount);
+        this.gameField = new Field(this.puppyCount, this.hotdogCount);
         this.gameField.setClickListener(this.onItemClick);
         this.started = false;
         this.score = 0;
@@ -75,20 +74,29 @@ class Game {
         this.startGameTimer(this.gameDuration);
         sound.playBackground();
     }
-    restart(initCarrot, initBug) {
-        this.carrotCount = initCarrot;
-        this.bugCount = initBug;
+    restart(initPuppy, initHotdog) {
+        this.puppyCount = initPuppy;
+        this.hotdogCount = initHotdog;
         this.level = 1;
         this.initGameField();
         this.start();
     }
-    startNext(reason) {
+    startNext() {
         this.stopGameTimer();
-        this.onGameStop && this.onGameStop(reason);
+        this.onGameStop && this.onGameStop(Reason.win);
         this.stageUp();
         this.updateLevel();
         this.initGame();
         this.startGameTimer(this.gameDuration);
+    }
+    stageUp() {
+        this.level++;
+        this.puppyCount += 3;
+        this.hotdogCount += 3;
+        this.initGameField();
+    }
+    updateLevel() {
+        this.gameLevel.innerText = `lv.${this.level}`;
     }
     stop(reason) {
         const playTime = this.gameDuration - this.remainingTimeSec;
@@ -99,12 +107,6 @@ class Game {
         this.onGameStop &&
             this.onGameStop(reason, this.level, this.score, playTime);
         sound.stopBackground();
-    }
-    stageUp() {
-        this.level++;
-        this.carrotCount += 3;
-        this.bugCount += 3;
-        this.initGameField();
     }
     showStopBtnAndLevel() {
         const icon = this.gameBtn.querySelector('.fa-solid');
@@ -132,7 +134,7 @@ class Game {
             this.updateTimerText(this.remainingTimeSec);
             if (this.remainingTimeSec <= 0) {
                 clearInterval(this.timer);
-                this.stop(this.score === this.carrotCount ? Reason.win : Reason.lose);
+                this.stop(this.score === this.puppyCount ? Reason.win : Reason.lose);
                 return;
             }
             this.updateTimerText(--this.remainingTimeSec);
@@ -146,21 +148,19 @@ class Game {
         const seconds = time % 60;
         this.gameTimer.innerText = `${minutes}:${seconds}`;
     }
-    updateLevel() {
-        this.gameLevel.innerText = `lv.${this.level}`;
-    }
     initGame() {
         this.score = 0;
-        this.gameScore.innerHTML = this.carrotCount;
+        this.gameScore.innerHTML = this.puppyCount;
         this.gameField.init();
     }
     initGameField() {
         this.gameField.setClickListener(null);
-        this.gameField = new Field(this.carrotCount, this.bugCount);
+        this.gameField = new Field(this.puppyCount, this.hotdogCount);
         this.gameField.setClickListener(this.onItemClick);
         this.remainingTimeSec = this.gameDuration;
     }
     updateScoreBoard() {
-        this.gameScore.innerText = this.carrotCount - this.score;
+        this.gameScore.innerText = this.puppyCount - this.score;
     }
 }
+//# sourceMappingURL=game.js.map

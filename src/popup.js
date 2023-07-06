@@ -28,8 +28,8 @@ export default class PopUp {
   }
 
   async showWithText(level, score, time) {
-    // TODO :로딩스피너
-    const data = await this.loadItems(); // await ?
+    // TODO:로딩스피너
+    const data = await this.loadItems();
     this.rank = this.findRank(data, { level, score, time });
     this.displayItems(data, level, score, time);
     this.popUp.classList.remove('pop-up--hide');

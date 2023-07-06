@@ -126,14 +126,14 @@ button {
   /* margin-top: 40px; */
 }
 
-.carrot,
-.bug {
+.puppy,
+.hotdog {
   transition: transform 100ms ease;
   user-select: none;
 }
 
-.carrot:hover,
-.bug:hover {
+.puppy:hover,
+.hotdog:hover {
   transform: scale(1.1);
 }
 

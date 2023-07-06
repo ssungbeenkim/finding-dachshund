@@ -1,15 +1,15 @@
 const alertSound = new Audio('./sound/alert.mp3');
 const bgSound = new Audio('./sound/bg.mp3');
-const bugSound = new Audio('./sound/bug_pull.mp3');
+const hotdogSound = new Audio('./sound/hotdog_pull.mp3');
 const winSound = new Audio('./sound/game_win.mp3');
-const carrotSound = new Audio('./sound/carrot_pull.mp3');
+const puppySound = new Audio('./sound/puppy_pull.mp3');
 
-export function playCarrot() {
-  playSound(carrotSound);
+export function playPuppy() {
+  playSound(puppySound);
 }
 
-export function playBug() {
-  playSound(bugSound);
+export function playHotdog() {
+  playSound(hotdogSound);
 }
 
 export function playAlert() {

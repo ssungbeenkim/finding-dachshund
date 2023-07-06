@@ -60,7 +60,7 @@
 
 - [x] 타이머와 아이템 갯수로 게임 플레이
 - [x] 클래스 단위로 나누어 리펙토링
-- [ ] TypeScript로 변환
+- [ ] TypeScript Conversion
 
 ### Nice to have
 

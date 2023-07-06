@@ -33,8 +33,8 @@ export default class PopUp {
     }
     showWithText(level, score, time) {
         return __awaiter(this, void 0, void 0, function* () {
-            // TODO :로딩스피너
-            const data = yield this.loadItems(); // await ?
+            // TODO:로딩스피너
+            const data = yield this.loadItems();
             this.rank = this.findRank(data, { level, score, time });
             this.displayItems(data, level, score, time);
             this.popUp.classList.remove('pop-up--hide');
@@ -180,3 +180,4 @@ export default class PopUp {
         });
     }
 }
+//# sourceMappingURL=popup.js.map

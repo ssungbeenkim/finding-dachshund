@@ -3,16 +3,16 @@ import PopUp from './popup.js';
 import { GameBuilder, Reason } from './game.js';
 import * as sound from './sound.js';
 
-const initCarrot = 2;
-const initBug = 4;
+const initPuppy = 2;
+const initHotdog = 4;
 const duration = 10;
 
 const gameFinishBanner = new PopUp();
 
 const game = new GameBuilder()
   .withGameDuration(duration)
-  .withCarrotCount(initCarrot)
-  .withBugCount(initBug)
+  .withPuppyCount(initPuppy)
+  .withHotdogCount(initHotdog)
   .build();
 
 game.setGameStopListener((reason, level, score, time) => {
@@ -25,12 +25,12 @@ game.setGameStopListener((reason, level, score, time) => {
       sound.playWin();
       break;
     case Reason.lose:
-      sound.playBug();
+      sound.playHotdog();
       gameFinishBanner.showWithText(level, score, time);
       break;
   }
 });
 
 gameFinishBanner.setClickListener(() => {
-  game.restart(initCarrot, initBug);
+  game.restart(initPuppy, initHotdog);
 });
