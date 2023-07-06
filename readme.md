@@ -4,8 +4,6 @@
  
 ## 프로젝트 소개 🌭
 
-<!-- ![img2](https://github.com/wandakim/find-dachshund/assets/74309458/5f9ef96a-6e1c-4b8c-9b28-91a326fe35a2)
-![img1](https://github.com/wandakim/find-dachshund/assets/74309458/3b52b6ef-9d5a-4da7-930b-9d99608feb03) -->
 <img src="https://github.com/wandakim/find-dachshund/assets/74309458/3b52b6ef-9d5a-4da7-930b-9d99608feb03" a2  width="280" />
 <img src="https://github.com/wandakim/find-dachshund/assets/74309458/5f9ef96a-6e1c-4b8c-9b28-91a326fe35a2" a2  width="270" />
 
@@ -79,11 +77,10 @@
 
 ### Need to Fix
 
-- 아이템 요소끼리 겹치지 않게 배치
-- 이미지, 사운드 파일 용량 줄이고 TTFB 단축
-  - 플레이에 필요한 리소스가 로드 된 후에 시작할 수 있게 하거나 할 수 있을까?
-- 음소거 가능하도록 하기
-- 로딩 스피너
-- 랭킹 등록 범위 10위까지로 업데이트하고 시간 데이터 추가예정
-- 게임 시작시 서버 깨워두기
-- 허용되지 않은 API 요청에 대한 보안요소 추가하기
+- [ ]아이템 요소끼리 겹치지 않게 배치
+- [ ]이미지, 사운드 파일 용량 줄이고 TTFB 단축
+- [ ]음소거 가능하도록 하기
+- [ ]로딩 스피너
+- [ ]랭킹 등록 범위 10위까지로 업데이트하고 시간 데이터 추가예정
+- [x] 게임 시작시 서버 깨워두기
+- [ ]허용되지 않은 API 요청에 대한 보안요소 추가하기
