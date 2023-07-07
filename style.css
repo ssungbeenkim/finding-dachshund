@@ -204,7 +204,7 @@ button {
 }
 
 .ranking__item:nth-child(3)::before {
-  content: counter(my-counter) 'rd 🥈'; /* 세 번째 .ranking__item 요소의 카운터 값 대신 "3rd" 표시 */
+  content: counter(my-counter) 'nd 🥈'; /* 세 번째 .ranking__item 요소의 카운터 값 대신 "3rd" 표시 */
   color: rgb(217, 217, 217);
 }
 

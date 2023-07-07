@@ -38,7 +38,7 @@ game.setGameStopListener((reason, level, score, time) => {
 gameFinishBanner.setClickListener(() => {
     game.restart(initPuppy, initHotdog);
 });
-// * for the server awakening
+// * for heroku sleep
 const BASE_URL = 'https://find-dachshund.herokuapp.com/scores';
 awakening();
 function awakening() {
