@@ -121,7 +121,6 @@ export default class PopUp {
 
   findRank(data, newData) {
     let rank = 1;
-    console.log(data);
     data.forEach((d) => {
       if (d.level > newData.level) {
         rank++;

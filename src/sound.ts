@@ -28,11 +28,11 @@ export function stopBackground() {
   stopSound(bgSound);
 }
 
-function playSound(sound) {
+function playSound(sound: HTMLAudioElement) {
   sound.currentTime = 0;
   sound.play();
 }
 
-function stopSound(sound) {
+function stopSound(sound: HTMLAudioElement) {
   sound.pause();
 }
