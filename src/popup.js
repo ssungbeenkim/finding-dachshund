@@ -55,7 +55,7 @@ export default class PopUp {
   }
 
   // 랭커가 입력을 submit하면 랭킹이 저장되고, 랭킹이 저장되면 랭킹이 다시 로드된다.
-  // Todo : 일단 다시 fetch해서 보여주는 부분으로 만들고 나중에 리팩토링
+  // TODO: 일단 다시 fetch해서 보여주는 부분으로 만들고 나중에 리팩토링
   handleSubmit(level, score, time) {
     const form = document.querySelector('.input__form');
     form.addEventListener('submit', async (e) => {
@@ -120,8 +120,8 @@ export default class PopUp {
   }
 
   findRank(data, newData) {
-    // 정렬된 리스트를 불러와서 랭크를 찾는다.
     let rank = 1;
+    console.log(data);
     data.forEach((d) => {
       if (d.level > newData.level) {
         rank++;
@@ -129,14 +129,12 @@ export default class PopUp {
       } else if (d.level < newData.level) {
         return;
       } else {
-        // level이 같으면 스코어를 검사한다. 작으면 rank를 증가시키고 크면 그대로 리턴한다. 같으면 시간을 검사한다.
         if (d.score > newData.score) {
           rank++;
           return;
         } else if (d.score < newData.score) {
           return;
         } else {
-          // level, score가 같으면 시간을 검사한다.
           if (d.time < newData.time) {
             rank++;
             return;

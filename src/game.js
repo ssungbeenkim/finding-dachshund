@@ -42,7 +42,6 @@ class Game {
         this.start();
       }
     });
-
     this.gameField = new Field(this.puppyCount, this.hotdogCount);
     this.gameField.setClickListener(this.onItemClick);
     this.started = false;
@@ -79,6 +78,7 @@ class Game {
     this.onGameStop && this.onGameStop(Reason.win);
     this.stageUp();
     this.updateLevel();
+    this.initGameField();
     this.initGame();
     this.startGameTimer(this.gameDuration);
   }
@@ -87,7 +87,6 @@ class Game {
     this.level++;
     this.puppyCount += 3;
     this.hotdogCount += 3;
-    this.initGameField();
   }
 
   updateLevel() {
@@ -98,7 +97,6 @@ class Game {
     const playTime = this.gameDuration - this.remainingTimeSec;
     this.started = false;
     this.stopGameTimer();
-    this.hideTimerAndScore;
     this.hideGameLevelScoreTimer();
     this.onGameStop &&
       this.onGameStop(reason, this.level, this.score, playTime);
@@ -125,8 +123,8 @@ class Game {
     if (!icon) {
       return;
     }
-    icon.classList.add('fa-stop');
     icon.classList.remove('fa-play');
+    icon.classList.add('fa-stop');
     this.gameBtn.style.visibility = 'visible';
     this.gameLevel.style.visibility = 'visible';
   }
@@ -146,7 +144,7 @@ class Game {
   startGameTimer() {
     this.updateTimerText(this.remainingTimeSec);
     this.timer = setInterval(() => {
-      this.updateTimerText(this.remainingTimeSec);
+      // this.updateTimerText(this.remainingTimeSec);
       if (this.remainingTimeSec <= 0) {
         clearInterval(this.timer);
         this.stop(this.score === this.puppyCount ? Reason.win : Reason.lose);

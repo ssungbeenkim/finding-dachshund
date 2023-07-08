@@ -35,7 +35,7 @@ gameFinishBanner.setClickListener(() => {
   game.restart(initPuppy, initHotdog);
 });
 
-// * for heroku sleep
+// * for heroku sleep..
 const BASE_URL = 'https://find-dachshund.herokuapp.com/scores';
 awakening();
 async function awakening() {
