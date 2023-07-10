@@ -36,7 +36,7 @@ gameFinishBanner.setClickListener(() => {
 });
 
 // * for heroku sleep..
-const BASE_URL = 'https://find-dachshund.herokuapp.com/scores';
+const BASE_URL = 'https://find-dachshund.herokuapp.com';
 awakening();
 async function awakening() {
   return await fetch(BASE_URL, {
