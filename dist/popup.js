@@ -8,10 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const BASE_URL = 'https://find-dachshund.herokuapp.com/scores';
 export default class PopUp {
     constructor() {
-        this.popUpText = document.querySelector('.pop-up__message');
+        this.BASE_URL = 'https://find-dachshund.herokuapp.com/scores';
         this.popUpRefresh = document.querySelector('.pop-up__refresh');
         this.popUp = document.querySelector('.pop-up');
         this.rank = null;
@@ -19,7 +18,7 @@ export default class PopUp {
             this.onClick && this.onClick();
             this.hide();
         });
-        this.positionElement;
+        this.positionElement = null;
     }
     hide() {
         this.popUp.classList.add('pop-up--hide');
@@ -35,21 +34,22 @@ export default class PopUp {
         return __awaiter(this, void 0, void 0, function* () {
             // TODO:로딩스피너
             const data = yield this.loadItems();
-            this.rank = this.findRank(data, { level, score, time });
+            this.rank = this.findRank(data, level, score, time);
             this.displayItems(data, level, score, time);
             this.popUp.classList.remove('pop-up--hide');
         });
     }
     displayItems(data, level, score, time) {
         this.positionElement = document.querySelector('.ranking-list__description');
-        if (this.rank <= 5) {
+        if (this.rank && this.rank <= 5) {
             const rankerHtmlArr = this.createRankerHtmlArr(data, 4);
-            const playerHtml = this.createPlayerHtml({ level, score, time });
+            const playerHtml = this.createPlayerHtml(level, score, time);
             rankerHtmlArr.splice(this.rank - 1, 0, playerHtml).pop();
             const rankerHtml = rankerHtmlArr.join('');
             this.positionElement.insertAdjacentHTML('afterend', rankerHtml);
             setTimeout(function () {
-                document.querySelector('.form__text').focus();
+                const formTextInput = document.querySelector('.form__text');
+                formTextInput.focus();
             }, 100);
             this.handleSubmit(level, score, time);
         }
@@ -74,8 +74,7 @@ export default class PopUp {
                 alert('Please enter within 10 characters.');
                 return;
             }
-            const ranker = { name, level, score, time }; // 현재 랭커의 데이터 생성.
-            const newData = yield this.postItem(ranker);
+            const newData = yield this.postItem(name, level, score, time);
             const newRankerHtml = this.createRankerHtmlArr(newData, 5).join('');
             const rankingItems = document.querySelectorAll('.ranking__item');
             rankingItems.forEach((item) => {
@@ -101,7 +100,7 @@ export default class PopUp {
         });
         return htmlArr;
     }
-    createPlayerHtml(item) {
+    createPlayerHtml(level, score, time) {
         return `
     <li class="ranking__item player">
       <ul class="rank__list">
@@ -114,37 +113,37 @@ export default class PopUp {
             </button>
           </form>
         </li>
-        <li class="stage">${item.level}</li>
-        <li class="score">${item.score}</li>
-        <li class="time">${item.time}</li>
+        <li class="stage">${level}</li>
+        <li class="score">${score}</li>
+        <li class="time">${time}</li>
       </ul>
     </li>
     `;
     }
-    findRank(data, newData) {
+    findRank(data, level, score, time) {
         let rank = 1;
         data.forEach((d) => {
-            if (d.level > newData.level) {
+            if (d.level > level) {
                 rank++;
                 return;
             }
-            else if (d.level < newData.level) {
+            else if (d.level < level) {
                 return;
             }
             else {
-                if (d.score > newData.score) {
+                if (d.score > score) {
                     rank++;
                     return;
                 }
-                else if (d.score < newData.score) {
+                else if (d.score < score) {
                     return;
                 }
                 else {
-                    if (d.time < newData.time) {
+                    if (d.time < time) {
                         rank++;
                         return;
                     }
-                    else if (d.time > newData.time) {
+                    else if (d.time > time) {
                         return;
                     }
                     else {
@@ -157,7 +156,7 @@ export default class PopUp {
     }
     loadItems() {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield fetch(BASE_URL, {
+            return yield fetch(this.BASE_URL, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             })
@@ -165,12 +164,12 @@ export default class PopUp {
                 .catch((err) => console.log('error', err));
         });
     }
-    postItem(item) {
+    postItem(name, level, score, time) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield fetch(BASE_URL, {
+            return yield fetch(this.BASE_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(item),
+                body: JSON.stringify({ name, level, score, time }),
             })
                 .then((response) => response.json())
                 .catch((err) => console.log('error', err));
