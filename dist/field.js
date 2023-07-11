@@ -7,6 +7,8 @@ export const ItemType = Object.freeze({
 });
 export class Field {
     constructor(puppyCount, hotdogCount) {
+        this.puppyCount = puppyCount;
+        this.hotdogCount = hotdogCount;
         this.onClick = (event) => {
             const target = event.target;
             if (target.matches('.puppy')) {

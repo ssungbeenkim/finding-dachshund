@@ -8,10 +8,14 @@ export const ItemType = Object.freeze({
 });
 
 export class Field {
-  constructor(puppyCount, hotdogCount) {
+  private field: HTMLElement;
+  private fieldRect: DOMRect;
+  private onItemClick?: (type: string) => void;
+
+  constructor(private puppyCount: number, private hotdogCount: number) {
     this.puppyCount = puppyCount;
     this.hotdogCount = hotdogCount;
-    this.field = document.querySelector('.game__field');
+    this.field = document.querySelector('.game__field')! as HTMLElement;
     this.fieldRect = this.field.getBoundingClientRect();
     this.field.addEventListener('click', this.onClick);
   }
@@ -22,11 +26,11 @@ export class Field {
     this._addItem('hotdog', this.hotdogCount, 'img/hotdog.png');
   }
 
-  setClickListener(onItemClick) {
+  setClickListener(onItemClick: (ItemType: string) => void) {
     this.onItemClick = onItemClick;
   }
 
-  _addItem(className, count, imgPath) {
+  _addItem(className: string, count: number, imgPath: string) {
     const x1 = 0;
     const y1 = 0;
     const x2 = this.fieldRect.width - itemSize;
@@ -45,8 +49,8 @@ export class Field {
     }
   }
 
-  onClick = (event) => {
-    const target = event.target;
+  onClick = (event: MouseEvent) => {
+    const target = event.target! as HTMLElement;
     if (target.matches('.puppy')) {
       target.remove();
       sound.playPuppy();
@@ -57,6 +61,6 @@ export class Field {
   };
 }
 
-function randomNumber(min, max) {
+function randomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
