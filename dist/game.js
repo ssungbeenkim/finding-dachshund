@@ -24,6 +24,10 @@ export class GameBuilder {
 }
 class Game {
     constructor(gameDuration, puppyCount, hotdogCount) {
+        this.gameDuration = gameDuration;
+        this.puppyCount = puppyCount;
+        this.hotdogCount = hotdogCount;
+        //TODO: Refectoring
         this.onItemClick = (item) => {
             if (!this.started) {
                 return;
@@ -39,9 +43,6 @@ class Game {
                 this.stop(Reason.lose);
             }
         };
-        this.gameDuration = gameDuration;
-        this.puppyCount = puppyCount;
-        this.hotdogCount = hotdogCount;
         this.gameTimer = document.querySelector('.game__timer');
         this.gameScore = document.querySelector('.game__score');
         this.gameLevel = document.querySelector('.game__level');
@@ -71,7 +72,7 @@ class Game {
         this.updateLevel();
         this.showStopBtnAndLevel();
         this.showTimerAndScore();
-        this.startGameTimer(this.gameDuration);
+        this.startGameTimer();
         sound.playBackground();
     }
     restart(initPuppy, initHotdog) {
@@ -88,7 +89,7 @@ class Game {
         this.updateLevel();
         this.initGameField();
         this.initGame();
-        this.startGameTimer(this.gameDuration);
+        this.startGameTimer( /* this.gameDuration */);
     }
     stageUp() {
         this.level++;
@@ -149,17 +150,17 @@ class Game {
     }
     initGame() {
         this.score = 0;
-        this.gameScore.innerHTML = this.puppyCount;
+        this.gameScore.innerHTML = `${this.puppyCount}`;
         this.gameField.init();
     }
     initGameField() {
-        this.gameField.setClickListener(null);
+        this.gameField.setClickListener(undefined); // TODO: Refectoring
         this.gameField = new Field(this.puppyCount, this.hotdogCount);
         this.gameField.setClickListener(this.onItemClick);
         this.remainingTimeSec = this.gameDuration;
     }
     updateScoreBoard() {
-        this.gameScore.innerText = this.puppyCount - this.score;
+        this.gameScore.innerText = `${this.puppyCount - this.score}`;
     }
 }
 //# sourceMappingURL=game.js.map

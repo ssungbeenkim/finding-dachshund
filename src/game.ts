@@ -8,15 +8,19 @@ export const Reason = Object.freeze({
 });
 
 export class GameBuilder {
-  withGameDuration(duration) {
+  private gameDuration!: number; // TODO: Refectoring
+  private puppyCount!: number;
+  private hotdogCount!: number;
+
+  withGameDuration(duration: number) {
     this.gameDuration = duration;
     return this;
   }
-  withPuppyCount(num) {
+  withPuppyCount(num: number) {
     this.puppyCount = num;
     return this;
   }
-  withHotdogCount(num) {
+  withHotdogCount(num: number) {
     this.hotdogCount = num;
     return this;
   }
@@ -25,16 +29,34 @@ export class GameBuilder {
     return new Game(this.gameDuration, this.puppyCount, this.hotdogCount);
   }
 }
-
+type OnStopListener = (
+  reason: string,
+  level?: number,
+  time?: number,
+  score?: number
+) => void;
 class Game {
-  constructor(gameDuration, puppyCount, hotdogCount) {
-    this.gameDuration = gameDuration;
-    this.puppyCount = puppyCount;
-    this.hotdogCount = hotdogCount;
-    this.gameTimer = document.querySelector('.game__timer');
-    this.gameScore = document.querySelector('.game__score');
-    this.gameLevel = document.querySelector('.game__level');
-    this.gameBtn = document.querySelector('.game__button');
+  private gameTimer: HTMLElement;
+  private gameScore: HTMLElement;
+  private gameLevel: HTMLElement;
+  private gameBtn: HTMLElement;
+  private gameField: Field;
+  private started: boolean;
+  private score: number;
+  private timer: number | undefined; //?
+  private remainingTimeSec: number;
+  private level: number;
+  private onGameStop?: OnStopListener;
+
+  constructor(
+    private gameDuration: number,
+    private puppyCount: number,
+    private hotdogCount: number
+  ) {
+    this.gameTimer = document.querySelector('.game__timer')! as HTMLElement;
+    this.gameScore = document.querySelector('.game__score')! as HTMLElement;
+    this.gameLevel = document.querySelector('.game__level')! as HTMLElement;
+    this.gameBtn = document.querySelector('.game__button')! as HTMLElement;
     this.gameBtn.addEventListener('click', () => {
       if (this.started) {
         this.stop(Reason.cancel);
@@ -51,7 +73,7 @@ class Game {
     this.level = 1;
   }
 
-  setGameStopListener(onGameStop) {
+  setGameStopListener(onGameStop: OnStopListener) {
     this.onGameStop = onGameStop;
   }
 
@@ -61,11 +83,11 @@ class Game {
     this.updateLevel();
     this.showStopBtnAndLevel();
     this.showTimerAndScore();
-    this.startGameTimer(this.gameDuration);
+    this.startGameTimer();
     sound.playBackground();
   }
 
-  restart(initPuppy, initHotdog) {
+  restart(initPuppy: number, initHotdog: number) {
     this.puppyCount = initPuppy;
     this.hotdogCount = initHotdog;
     this.level = 1;
@@ -80,7 +102,7 @@ class Game {
     this.updateLevel();
     this.initGameField();
     this.initGame();
-    this.startGameTimer(this.gameDuration);
+    this.startGameTimer(/* this.gameDuration */);
   }
 
   stageUp() {
@@ -93,7 +115,7 @@ class Game {
     this.gameLevel.innerText = `lv.${this.level}`;
   }
 
-  stop(reason) {
+  stop(reason: string) {
     const playTime = this.gameDuration - this.remainingTimeSec;
     this.started = false;
     this.stopGameTimer();
@@ -103,7 +125,8 @@ class Game {
     sound.stopBackground();
   }
 
-  onItemClick = (item) => {
+  //TODO: Refectoring
+  onItemClick = (item: string | null) => {
     if (!this.started) {
       return;
     }
@@ -158,7 +181,7 @@ class Game {
     clearInterval(this.timer);
   }
 
-  updateTimerText(time) {
+  updateTimerText(time: number) {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     this.gameTimer.innerText = `${minutes}:${seconds}`;
@@ -166,18 +189,18 @@ class Game {
 
   initGame() {
     this.score = 0;
-    this.gameScore.innerHTML = this.puppyCount;
+    this.gameScore.innerHTML = `${this.puppyCount}`;
     this.gameField.init();
   }
 
   initGameField() {
-    this.gameField.setClickListener(null);
+    this.gameField.setClickListener(undefined); // TODO: Refectoring
     this.gameField = new Field(this.puppyCount, this.hotdogCount);
     this.gameField.setClickListener(this.onItemClick);
     this.remainingTimeSec = this.gameDuration;
   }
 
   updateScoreBoard() {
-    this.gameScore.innerText = this.puppyCount - this.score;
+    this.gameScore.innerText = `${this.puppyCount - this.score}`;
   }
 }

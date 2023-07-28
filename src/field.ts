@@ -25,7 +25,7 @@ export class Field {
     this._addItem('hotdog', this.hotdogCount, 'img/hotdog.png');
   }
 
-  setClickListener(onItemClick: (ItemType: string) => void) {
+  setClickListener(onItemClick?: (ItemType: string | null) => void) {
     this.onItemClick = onItemClick;
   }
 
