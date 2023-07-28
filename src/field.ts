@@ -1,6 +1,4 @@
 import * as sound from './sound.js';
-('use strict');
-const itemSize = 100;
 
 export const ItemType = Object.freeze({
   puppy: 'puppy',
@@ -8,6 +6,7 @@ export const ItemType = Object.freeze({
 });
 
 export class Field {
+  private itemSize: number = 100;
   private field: HTMLElement;
   private fieldRect: DOMRect;
   private onItemClick?: (type: string) => void;
@@ -33,8 +32,8 @@ export class Field {
   _addItem(className: string, count: number, imgPath: string) {
     const x1 = 0;
     const y1 = 0;
-    const x2 = this.fieldRect.width - itemSize;
-    const y2 = this.fieldRect.height - itemSize;
+    const x2 = this.fieldRect.width - this.itemSize;
+    const y2 = this.fieldRect.height - this.itemSize;
     // TODO: 아이템이 겹치지 않게 생성하는 로직 추가
     for (let i = 0; i < count; i++) {
       const item = document.createElement('img');
