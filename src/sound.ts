@@ -1,8 +1,8 @@
-const alertSound = new Audio('./sound/alert.mp3');
-const bgSound = new Audio('./sound/bg.mp3');
-const hotdogSound = new Audio('./sound/hotdog_pull.mp3');
-const winSound = new Audio('./sound/game_win.mp3');
-const puppySound = new Audio('./sound/puppy_pull.mp3');
+const alertSound = new Audio('./sound/alert.mp3')! as HTMLAudioElement;
+const bgSound = new Audio('./sound/bg.mp3')! as HTMLAudioElement;
+const hotdogSound = new Audio('./sound/hotdog_pull.mp3')! as HTMLAudioElement;
+const winSound = new Audio('./sound/game_win.mp3')! as HTMLAudioElement;
+const puppySound = new Audio('./sound/puppy_pull.mp3')! as HTMLAudioElement;
 
 export function playPuppy() {
   playSound(puppySound);
