@@ -38,7 +38,7 @@
 <div> 
   <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
   <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
-  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white"> 
+  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> 
   <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white">
   <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
   <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white">
@@ -58,7 +58,7 @@
 
 - [x] 타이머와 아이템 갯수로 게임 플레이
 - [x] 클래스 단위로 나누어 리펙토링
-- [ ] TypeScript Conversion
+- [x] TypeScript Conversion
 
 ### Nice to have
 
@@ -77,10 +77,10 @@
 
 ### Need to Fix
 
-- [ ] 아이템 요소끼리 겹치지 않게 배치
+- [ ] 아이템 요소끼리 겹치지 않게 생성하도록
 - [x] 이미지, 사운드 파일 압축하여 TTFB 단축
-- [ ] 음소거 가능하도록 하기
+- [ ] 음소거 기능 추가
 - [ ] 로딩 스피너
 - [ ] 랭킹 등록 범위 대폭 확대
-- [x] 게임 시작시 서버 깨워두기
+- [x] 게임 시작시 랭킹 서버 깨워두기
 - [ ] 허용되지 않은 API 요청에 대한 보안요소 추가
