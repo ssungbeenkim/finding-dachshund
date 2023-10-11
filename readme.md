@@ -2,8 +2,6 @@
 
 <br/>
  
-## 프로젝트 소개 🌭
-
 <img src="https://github.com/wandakim/find-dachshund/assets/74309458/3b52b6ef-9d5a-4da7-930b-9d99608feb03" a2  width="280" />
 <img src="https://github.com/wandakim/find-dachshund/assets/74309458/5f9ef96a-6e1c-4b8c-9b28-91a326fe35a2" a2  width="270" />
 
@@ -19,68 +17,21 @@
 
    링크로 접속한 후 play 버튼을 클릭합니다.
 
-2. **기록 달성하기**
+2. **기록 달성 및 랭킹 등록하기**
 
    주어진 시간 안에 닥스훈트를 모두 찾으면 미션 성공! 다음 레벨로 넘어갑니다.
 
-   게임을 멈추거나 핫도그를 클릭하면 실시간 서버를 통해 데이터베이스의 랭크를 조회합니다.
+   게임을 멈추거나 핫도그를 클릭하면 스코어, 플레이시간, 획득 점수를 토대로 랭크를 조회합니다.
 
-   전체 플레이어 중 5위 이내에 들 경우 랭킹 등록이 가능합니다.
-
-3. **랭킹 등록하기**
-
-   게임이 종료되면 실시간 랭킹을 확인하고 5 위 안에 들 경우 랭킹을 등록할 수 있습니다.
+   5위 안에 드는 경우 랭킹 등록이 가능합니다. 
 
 <br />
 
 ## Built With
-
-<div> 
-  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
-  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
-  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> 
-  <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white">
-  <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
-  <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white">
-  <img src="https://img.shields.io/badge/heroku-430098?style=for-the-badge&logo=netlify&logoColor=white">
-  <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
-  <img src="https://img.shields.io/badge/sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white">
-  <img src="https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white">
-  <!-- sequelizeorm, postgressqul -->
-
-</div>
+  
+- TypeScript
+- Express.js
+- SequelizeORM
+- Postgresql
 
 <br />
-
-## Roadmap
-
-### Must have
-
-- [x] 타이머와 아이템 갯수로 게임 플레이
-- [x] 클래스 단위로 나누어 리펙토링
-- [x] TypeScript Conversion
-
-### Nice to have
-
-- [x] 게임 레벨 기능 추가 및 다음 게임으로 자동 전환
-- [x] 및 다음 게임 자동 생성 후 전환
-- [x] 실시간 데이터베이스 랭킹 조회 및 확인 후 창 자동전환
-- [ ] 랭킹 리스트를 보여줄 때는 스크롤이 되도록 해서 5위 이하까지 볼 수 있게
-
-### Good to have
-
-- [ ] 아이템이 동적으로 움직이게
-- [ ] 랭킹 삭제 및 수정
-- [ ] 강아지와 핫도그 이미지 다양화를 통한 난이도 조절 세밀화
-- [ ] 반응형으로 만들어 모든 기기에서 플레이 가능하도록
-- [ ] 로그인하여 이전 기록에서 이어서 시작할 수 있도록
-
-### Need to Fix
-
-- [ ] 아이템 요소끼리 겹치지 않게 생성하도록
-- [x] 이미지, 사운드 파일 압축하여 TTFB 단축
-- [ ] 음소거 기능 추가
-- [ ] 로딩 스피너
-- [ ] 랭킹 등록 범위 대폭 확대
-- [x] 게임 시작시 랭킹 서버 깨워두기
-- [ ] 허용되지 않은 API 요청에 대한 보안요소 추가
